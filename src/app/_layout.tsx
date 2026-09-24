@@ -71,6 +71,20 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
+          name="(chat)"
+          options={{
+            headerShown: false,
+            title: "Chat",
+            tabBarIcon: ({ color, focused }) => (
+              <Icon
+                name={focused ? "chat" : "chat-outline"}
+                size={24}
+                color={color as string}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
           name="(menu)"
           options={{
             headerShown: false,

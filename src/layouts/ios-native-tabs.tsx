@@ -29,6 +29,26 @@ export function IosNativeTabs({ colors }: { colors: any }) {
           renderingMode="template"
         />
       </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="(chat)">
+        <NativeTabs.Trigger.Label>Chat</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon
+          src={{
+            default: (
+              <NativeTabs.Trigger.VectorIcon
+                family={MaterialDesignIcons}
+                name="chat-outline"
+              />
+            ),
+            selected: (
+              <NativeTabs.Trigger.VectorIcon
+                family={MaterialDesignIcons}
+                name="chat"
+              />
+            ),
+          }}
+          renderingMode="template"
+        />
+      </NativeTabs.Trigger>
       <NativeTabs.Trigger name="(menu)">
         <NativeTabs.Trigger.Label>Menu</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
