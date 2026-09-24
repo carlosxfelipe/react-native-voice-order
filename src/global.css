@@ -1,9 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
+
 :root {
   --font-display:
-    Spline Sans, Inter, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji,
-    Segoe UI Symbol, Noto Color Emoji;
+    Roboto, Spline Sans, Inter, ui-sans-serif, system-ui, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
   --font-mono:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
-  --font-rounded: 'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif;
-  --font-serif: Georgia, 'Times New Roman', serif;
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono,
+    Courier New, monospace;
+  --font-rounded:
+    "SF Pro Rounded", "Hiragino Maru Gothic ProN", Meiryo, "MS PGothic",
+    sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+}
+
+/* Disable text selection globally on Web to mimic native mobile app behavior */
+*,
+*::before,
+*::after {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Disable browser blue outline tap highlight on mobile browsers */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Allow text selection in inputs, textareas, and editable areas for proper usability */
+input,
+textarea,
+[contenteditable="true"] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
