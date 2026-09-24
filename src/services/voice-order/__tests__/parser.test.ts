@@ -32,7 +32,7 @@ for (const input of tests) {
   if (result.items.length > 0) {
     for (const item of result.items) {
       console.log(
-        `  ✅ ${item.quantity}x ${item.product.name} (${item.product.sku}) — confiança: ${(item.confidence * 100).toFixed(0)}%`
+        `  ✅ ${item.quantity}x ${item.product.name} (${item.product.sku}) — confiança: ${(item.confidence * 100).toFixed(0)}%`,
       );
     }
   }

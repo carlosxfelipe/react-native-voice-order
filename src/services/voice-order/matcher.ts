@@ -94,7 +94,7 @@ function wordOverlap(query: string, target: string): number {
  */
 export function findBestMatch(
   query: string,
-  index: ProductIndex
+  index: ProductIndex,
 ): MatchResult | null {
   const normalizedQuery = normalize(query);
   const expandedQuery = expandAbbreviations(query);
@@ -121,11 +121,11 @@ export function findBestMatch(
     ) {
       const shorter = Math.min(
         normalizedQuery.length,
-        entry.normalizedName.length
+        entry.normalizedName.length,
       );
       const longer = Math.max(
         normalizedQuery.length,
-        entry.normalizedName.length
+        entry.normalizedName.length,
       );
       const substringScore = shorter / longer;
       maxScore = Math.max(maxScore, substringScore * 0.9 + 0.1);

@@ -1,19 +1,18 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
-  StyleSheet,
-  View,
-  TextInput,
-  ScrollView,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  View,
 } from "react-native";
 
-import { Text } from "@/components/text";
 import { Icon } from "@/components/icon";
+import { Text } from "@/components/text";
 import { useTheme } from "@/hooks/use-theme";
 import { useVoiceOrder } from "@/hooks/use-voice-order";
 import products from "../../../data/products.json";
-
 
 type Message = {
   id: string;
@@ -99,8 +98,11 @@ export default function ChatScreen() {
     parseText(textToParse);
   };
 
+  const Container =
+    Platform.OS === "web" ? (View as any) : KeyboardAvoidingView;
+
   return (
-    <KeyboardAvoidingView
+    <Container
       style={[styles.container, { backgroundColor: theme.backgroundElement }]}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
       keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
@@ -182,7 +184,9 @@ export default function ChatScreen() {
                 ? "Ouvindo..."
                 : "Digite sua mensagem..."
           }
-          placeholderTextColor={error || isListening ? "red" : theme.placeholder}
+          placeholderTextColor={
+            error || isListening ? "red" : theme.placeholder
+          }
           value={inputText}
           onChangeText={setInputText}
           onSubmitEditing={handleSend}
@@ -205,7 +209,7 @@ export default function ChatScreen() {
           />
         </View>
       </View>
-    </KeyboardAvoidingView>
+    </Container>
   );
 }
 
@@ -252,7 +256,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 12,
     paddingHorizontal: 16,
-    paddingBottom: Platform.OS === "ios" ? 100 : Platform.OS === "web" ? 12 : 24,
+    paddingBottom:
+      Platform.OS === "ios" ? 100 : Platform.OS === "web" ? 12 : 24,
     alignItems: "center",
     borderTopWidth: StyleSheet.hairlineWidth,
   },

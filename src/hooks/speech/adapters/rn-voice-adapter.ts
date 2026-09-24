@@ -22,6 +22,6 @@ export function useRNVoiceSpeechRecognition(): UseSpeechRecognitionReturn {
   // TODO: Implementar com @react-native-voice/voice
   throw new Error(
     "RN Voice adapter não implementado. " +
-      "Instale @react-native-voice/voice e implemente este adapter."
+      "Instale @react-native-voice/voice e implemente este adapter.",
   );
 }

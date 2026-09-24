@@ -20,6 +20,13 @@ const SEPARATORS = /\b(?:e|mais|tambem|também|com)\b|[,;]/gi;
 
 /** Palavras "ruído" que devem ser ignoradas antes do matching. */
 const NOISE_WORDS = [
+  "eu",
+  "agora",
+  "ja",
+  "queria",
+  "gostaria",
+  "ve",
+  "mim",
   "quero",
   "preciso",
   "me",
@@ -156,7 +163,7 @@ export class VoiceOrderParser {
       if (match && match.confidence >= this.options.minConfidence) {
         // Verifica se o produto já está na lista (agrupa quantidades)
         const existing = items.find(
-          (item) => item.product.id === match.product.id
+          (item) => item.product.id === match.product.id,
         );
         if (existing) {
           existing.quantity += quantity;

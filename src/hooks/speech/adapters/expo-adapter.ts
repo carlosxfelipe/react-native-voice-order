@@ -104,7 +104,7 @@ export function useExpoSpeechRecognition(): UseSpeechRecognitionReturn {
       });
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Erro ao iniciar reconhecimento"
+        err instanceof Error ? err.message : "Erro ao iniciar reconhecimento",
       );
     }
   }, []);

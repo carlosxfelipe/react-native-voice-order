@@ -9,9 +9,4 @@ export { extractQuantity } from "./quantity-parser";
 export { normalize, expandAbbreviations } from "./normalizer";
 export { buildIndex, findBestMatch } from "./matcher";
 
-export type {
-  Product,
-  OrderItem,
-  ParseResult,
-  ParserOptions,
-} from "./types";
+export type { Product, OrderItem, ParseResult, ParserOptions } from "./types";

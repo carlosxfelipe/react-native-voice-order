@@ -46,7 +46,7 @@ export interface UseVoiceOrderReturn {
 
 export function useVoiceOrder(
   products: Product[],
-  parserOptions?: ParserOptions
+  parserOptions?: ParserOptions,
 ): UseVoiceOrderReturn {
   const speech = useSpeechRecognition();
   const [orderResult, setOrderResult] = useState<ParseResult | null>(null);
@@ -54,7 +54,7 @@ export function useVoiceOrder(
   // Cria o parser uma vez e re-cria se os produtos mudarem
   const parser = useMemo(
     () => new VoiceOrderParser(products, parserOptions),
-    [products, parserOptions]
+    [products, parserOptions],
   );
 
   // Ref para saber se deve parsear ao finalizar
@@ -66,7 +66,7 @@ export function useVoiceOrder(
       setOrderResult(result);
       return result;
     },
-    [parser]
+    [parser],
   );
 
   const startListening = useCallback(async () => {
