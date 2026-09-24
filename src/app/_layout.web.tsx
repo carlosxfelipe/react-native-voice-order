@@ -32,6 +32,12 @@ export default function WebLayout() {
       activeIcon: "home",
       inactiveIcon: "home-outline",
     },
+    {
+      name: "Chat",
+      path: "/(chat)",
+      activeIcon: "chat",
+      inactiveIcon: "chat-outline",
+    },
     { name: "Menu", path: "/(menu)", activeIcon: "menu", inactiveIcon: "menu" },
   ] as const;
 
@@ -70,7 +76,9 @@ export default function WebLayout() {
               const isActive =
                 item.path === "/(menu)"
                   ? (segments as string[]).includes("(menu)")
-                  : !(segments as string[]).includes("(menu)");
+                  : item.path === "/(chat)"
+                  ? (segments as string[]).includes("(chat)")
+                  : !(segments as string[]).includes("(menu)") && !(segments as string[]).includes("(chat)");
               return (
                 <Pressable
                   key={item.path}
@@ -128,7 +136,9 @@ export default function WebLayout() {
               const isActive =
                 item.path === "/(menu)"
                   ? (segments as string[]).includes("(menu)")
-                  : !(segments as string[]).includes("(menu)");
+                  : item.path === "/(chat)"
+                  ? (segments as string[]).includes("(chat)")
+                  : !(segments as string[]).includes("(menu)") && !(segments as string[]).includes("(chat)");
               return (
                 <Pressable
                   key={item.path}

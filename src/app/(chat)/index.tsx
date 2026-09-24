@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 12,
     paddingHorizontal: 16,
-    paddingBottom: Platform.OS === "ios" ? 100 : 80,
+    paddingBottom: Platform.OS === "ios" ? 100 : Platform.OS === "web" ? 12 : 24,
     alignItems: "center",
     borderTopWidth: StyleSheet.hairlineWidth,
   },
