@@ -26,13 +26,6 @@ export default function HomeLayout() {
           title: "Home",
         }}
       />
-      <Stack.Screen
-        name="details"
-        options={{
-          title: "Details",
-          // The back arrow automatically appears here!
-        }}
-      />
     </Stack>
   );
 }

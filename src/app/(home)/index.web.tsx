@@ -1,7 +1,6 @@
-import { Stack, useRouter } from "expo-router";
+import { Stack } from "expo-router";
 import { ScrollView, StyleSheet } from "react-native";
 
-import { Button } from "@/components/button";
 import { Icon } from "@/components/icon";
 import { Text } from "@/components/text";
 
@@ -10,7 +9,6 @@ import { useTheme } from "@/hooks/use-theme";
 
 export default function HomeScreen() {
   const theme = useTheme();
-  const router = useRouter();
   const { isDesktop } = useResponsive();
 
   return (
@@ -35,15 +33,6 @@ export default function HomeScreen() {
         contentInsetAdjustmentBehavior="automatic"
       >
         <Text>Welcome to Expo</Text>
-        <Button
-          variant="tinted"
-          onPress={() => router.push("/details")}
-          iconRight={(color) => (
-            <Icon name="arrow-right" size={18} color={color} animated={false} />
-          )}
-        >
-          Go to Details
-        </Button>
       </ScrollView>
     </>
   );

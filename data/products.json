@@ -1,0 +1,292 @@
+[
+  {
+    "id": "1",
+    "sku": "CC-LATA-350",
+    "name": "Coca-Cola LATA 350ml",
+    "price": 4.50,
+    "imageUrl": "",
+    "brand": "Coca-Cola",
+    "category": "Refrigerantes",
+    "stock": 150
+  },
+  {
+    "id": "2",
+    "sku": "CC-LT-350",
+    "name": "CC LT 350",
+    "price": 4.45,
+    "imageUrl": "",
+    "brand": "Coca-Cola",
+    "category": "Refrigerantes",
+    "stock": 42
+  },
+  {
+    "id": "3",
+    "sku": "COCA-PET-2L",
+    "name": "COCA COLA GARRAFA 2L",
+    "price": 9.90,
+    "imageUrl": "",
+    "brand": "Coca-Cola",
+    "category": "Refrigerantes",
+    "stock": 310
+  },
+  {
+    "id": "4",
+    "sku": "REF-COLA-2L",
+    "name": "Refrigerante Cola Pet 2L",
+    "price": 9.80,
+    "imageUrl": "",
+    "brand": "Coca-Cola",
+    "category": "Refrigerantes",
+    "stock": 55
+  },
+  {
+    "id": "5",
+    "sku": "CC-ZERO-600",
+    "name": "Coca-Cola Zero Pet 600ml",
+    "price": 5.50,
+    "imageUrl": "",
+    "brand": "Coca-Cola",
+    "category": "Refrigerantes",
+    "stock": 120
+  },
+  {
+    "id": "6",
+    "sku": "CCZ-600",
+    "name": "CC ZERO 600",
+    "price": 5.50,
+    "imageUrl": "",
+    "brand": "Coca-Cola",
+    "category": "Refrigerantes",
+    "stock": 28
+  },
+  {
+    "id": "7",
+    "sku": "FANTA-LAR-LT",
+    "name": "Fanta Laranja Lata 350",
+    "price": 4.20,
+    "imageUrl": "",
+    "brand": "Fanta",
+    "category": "Refrigerantes",
+    "stock": 200
+  },
+  {
+    "id": "8",
+    "sku": "FAN-LAR-2L",
+    "name": "FANTA LAR 2L",
+    "price": 8.90,
+    "imageUrl": "",
+    "brand": "Fanta",
+    "category": "Refrigerantes",
+    "stock": 95
+  },
+  {
+    "id": "9",
+    "sku": "FANTA-UVA-350",
+    "name": "Fanta Uva 350 Lata",
+    "price": 4.20,
+    "imageUrl": "",
+    "brand": "Fanta",
+    "category": "Refrigerantes",
+    "stock": 110
+  },
+  {
+    "id": "10",
+    "sku": "SPRITE-LT",
+    "name": "Sprite Zero LT 350",
+    "price": 4.30,
+    "imageUrl": "",
+    "brand": "Sprite",
+    "category": "Refrigerantes",
+    "stock": 65
+  },
+  {
+    "id": "11",
+    "sku": "SPRITE-Z-350",
+    "name": "SPRITE Z. 350 ML",
+    "price": 4.30,
+    "imageUrl": "",
+    "brand": "Sprite",
+    "category": "Refrigerantes",
+    "stock": 14
+  },
+  {
+    "id": "12",
+    "sku": "SPRITE-PET-2L",
+    "name": "Sprite PET 2 Litros",
+    "price": 8.90,
+    "imageUrl": "",
+    "brand": "Sprite",
+    "category": "Refrigerantes",
+    "stock": 88
+  },
+  {
+    "id": "13",
+    "sku": "SPR-2L",
+    "name": "Sprite 2 L",
+    "price": 8.85,
+    "imageUrl": "",
+    "brand": "Sprite",
+    "category": "Refrigerantes",
+    "stock": 31
+  },
+  {
+    "id": "14",
+    "sku": "KUAT-PET-2L",
+    "name": "Kuat Guarana 2L",
+    "price": 7.50,
+    "imageUrl": "",
+    "brand": "Kuat",
+    "category": "Refrigerantes",
+    "stock": 175
+  },
+  {
+    "id": "15",
+    "sku": "GUA-KUAT-2",
+    "name": "GUARANA KUAT PET 2",
+    "price": 7.40,
+    "imageUrl": "",
+    "brand": "Kuat",
+    "category": "Refrigerantes",
+    "stock": 42
+  },
+  {
+    "id": "16",
+    "sku": "SCHW-CITRUS-15",
+    "name": "Schweppes Citrus 1,5L",
+    "price": 7.90,
+    "imageUrl": "",
+    "brand": "Schweppes",
+    "category": "Refrigerantes",
+    "stock": 60
+  },
+  {
+    "id": "17",
+    "sku": "SCHW-CIT-LT",
+    "name": "SCHWEPPES CITRUS LATA",
+    "price": 4.80,
+    "imageUrl": "",
+    "brand": "Schweppes",
+    "category": "Refrigerantes",
+    "stock": 105
+  },
+  {
+    "id": "18",
+    "sku": "DV-PESS-1L",
+    "name": "Del Valle Pessego 1L",
+    "price": 6.50,
+    "imageUrl": "",
+    "brand": "Del Valle",
+    "category": "Sucos",
+    "stock": 250
+  },
+  {
+    "id": "19",
+    "sku": "SUCO-DV-PESS-1",
+    "name": "Suco DV Pessego 1 L",
+    "price": 6.50,
+    "imageUrl": "",
+    "brand": "Del Valle",
+    "category": "Sucos",
+    "stock": 73
+  },
+  {
+    "id": "20",
+    "sku": "CRYSTAL-SG-500",
+    "name": "Agua Crystal s/ gas 500",
+    "price": 2.50,
+    "imageUrl": "",
+    "brand": "Crystal",
+    "category": "Águas",
+    "stock": 400
+  },
+  {
+    "id": "21",
+    "sku": "AGUA-CRY-CG",
+    "name": "AGUA CRYSTAL C/G 500ML",
+    "price": 2.60,
+    "imageUrl": "",
+    "brand": "Crystal",
+    "category": "Águas",
+    "stock": 320
+  },
+  {
+    "id": "24",
+    "sku": "MONSTER-VD-473",
+    "name": "Monster Energy Verde 473ml",
+    "price": 10.90,
+    "imageUrl": "",
+    "brand": "Monster",
+    "category": "Energéticos",
+    "stock": 130
+  },
+  {
+    "id": "25",
+    "sku": "MONSTER-473",
+    "name": "MONSTER 473",
+    "price": 10.90,
+    "imageUrl": "",
+    "brand": "Monster",
+    "category": "Energéticos",
+    "stock": 50
+  },
+  {
+    "id": "26",
+    "sku": "CERV-SOL-LATA-350",
+    "name": "Cerveja Sol Premium Lata 350ml",
+    "price": 4.50,
+    "imageUrl": "",
+    "brand": "Sol",
+    "category": "Cervejas",
+    "stock": 200
+  },
+  {
+    "id": "27",
+    "sku": "SOL-LT-350",
+    "name": "SOL LT 350",
+    "price": 4.45,
+    "imageUrl": "",
+    "brand": "Sol",
+    "category": "Cervejas",
+    "stock": 80
+  },
+  {
+    "id": "28",
+    "sku": "CERV-SOL-LN-330",
+    "name": "Cerveja Sol Long Neck 330",
+    "price": 5.90,
+    "imageUrl": "",
+    "brand": "Sol",
+    "category": "Cervejas",
+    "stock": 140
+  },
+  {
+    "id": "29",
+    "sku": "VODKA-ABSOLUT-SPRITE-LATA",
+    "name": "Absolut Vodka com Sprite Lata 269ml",
+    "price": 12.90,
+    "imageUrl": "",
+    "brand": "Absolut & Sprite",
+    "category": "Drinks Prontos",
+    "stock": 60
+  },
+  {
+    "id": "30",
+    "sku": "ABS-SPRITE-LT",
+    "name": "ABS VODKA SPRITE LATA",
+    "price": 12.50,
+    "imageUrl": "",
+    "brand": "Absolut & Sprite",
+    "category": "Drinks Prontos",
+    "stock": 25
+  },
+  {
+    "id": "31",
+    "sku": "JACK-DANIELS-COCA-LATA",
+    "name": "Jack Daniels com Coca-Cola Lata 330ml",
+    "price": 14.90,
+    "imageUrl": "",
+    "brand": "Jack Daniels & Coca-Cola",
+    "category": "Drinks Prontos",
+    "stock": 85
+  }
+]
