@@ -21,22 +21,22 @@ npm install
 ## Estrutura
 
 ```
-src/
-├── app/                         # Telas (Expo Router)
-│   ├── (home)/                  # Tela inicial
-│   ├── (chat)/                  # Chat com a SOL (assistente)
-│   └── (menu)/                  # Menu/configurações
-├── hooks/
-│   ├── speech/                  # Adapter de speech-to-text
-│   │   ├── adapters/expo-adapter.ts   # expo-speech-recognition
-│   │   └── adapters/rn-voice-adapter.ts # placeholder bare RN
-│   └── use-voice-order.ts       # Cola speech + parser
-├── services/
-│   └── voice-order/             # Parser de pedido por voz (puro TS, zero deps)
-│       ├── parser.ts            # "duas coca lata" → { product, qty: 2 }
-│       ├── matcher.ts           # Fuzzy matching (Dice coefficient)
-│       ├── normalizer.ts        # Remove acentos, expande abreviações
-│       └── quantity-parser.ts   # "meia dúzia" → 6
+├── src/
+│   ├── app/                         # Telas (Expo Router)
+│   │   ├── (home)/                  # Tela inicial
+│   │   ├── (chat)/                  # Chat com a SOL (assistente)
+│   │   └── (menu)/                  # Menu/configurações
+│   ├── hooks/
+│   │   ├── speech/                  # Adapter de speech-to-text
+│   │   │   ├── adapters/expo-adapter.ts   # expo-speech-recognition
+│   │   │   └── adapters/rn-voice-adapter.ts # placeholder bare RN
+│   │   └── use-voice-order.ts       # Cola speech + parser
+│   └── services/
+│       └── voice-order/             # Parser de pedido por voz (puro TS, zero deps)
+│           ├── parser.ts            # "duas coca lata" → { product, qty: 2 }
+│           ├── matcher.ts           # Fuzzy matching (Dice coefficient)
+│           ├── normalizer.ts        # Remove acentos, expande abreviações
+│           └── quantity-parser.ts   # "meia dúzia" → 6
 └── data/
     └── products.json            # Catálogo de produtos
 ```

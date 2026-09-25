@@ -173,19 +173,27 @@ export default function ChatScreen() {
           style={[
             styles.input,
             {
-              backgroundColor: theme.inputBackground,
+              backgroundColor: isListening
+                ? theme.primary + "1A" // 10% opacity primary color
+                : theme.inputBackground,
               color: theme.text,
+              borderWidth: 1,
+              borderColor: isListening ? theme.primary : "transparent",
             },
           ]}
           placeholder={
             error
               ? `Erro: ${error}`
               : isListening
-                ? "Ouvindo..."
+                ? "Fale seu pedido..."
                 : "Digite sua mensagem..."
           }
           placeholderTextColor={
-            error || isListening ? "red" : theme.placeholder
+            error
+              ? theme.notification
+              : isListening
+                ? theme.primary
+                : theme.placeholder
           }
           value={inputText}
           onChangeText={setInputText}
@@ -195,7 +203,7 @@ export default function ChatScreen() {
         <View style={styles.sendButton}>
           <Icon
             name={isListening ? "microphone" : "microphone-outline"}
-            color={isListening ? "red" : theme.primary}
+            color={isListening ? theme.primary : theme.textSecondary}
             size={28}
             onPress={isListening ? stopListening : startListening}
           />
