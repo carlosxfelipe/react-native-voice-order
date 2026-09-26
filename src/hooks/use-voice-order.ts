@@ -13,14 +13,21 @@
 
 import { useCallback, useMemo, useRef, useState } from "react";
 
-import { useSpeechRecognition } from "./speech/use-speech-recognition";
+/**
+ * DEBUG: mude para `true` para ver o texto RAW do motor de voz,
+ * sem nenhuma correção visual nem aliases do parser.
+ * Lembre de voltar para `false` antes de commitar!
+ */
+const DEBUG_RAW_TRANSCRIPT = false;
+
 import {
-  VoiceOrderParser,
   DOMAIN_ALIASES,
+  VoiceOrderParser,
   type ParseResult,
-  type Product,
   type ParserOptions,
+  type Product,
 } from "@/services/voice-order";
+import { useSpeechRecognition } from "./speech/use-speech-recognition";
 
 export interface UseVoiceOrderReturn {
   /** Se está escutando ativamente. */
@@ -54,7 +61,13 @@ export function useVoiceOrder(
 
   // Cria o parser uma vez e re-cria se os produtos mudarem
   const parser = useMemo(
-    () => new VoiceOrderParser(products, parserOptions),
+    () =>
+      new VoiceOrderParser(
+        products,
+        DEBUG_RAW_TRANSCRIPT
+          ? { ...parserOptions, aliases: {} } // sem aliases em modo debug
+          : parserOptions,
+      ),
     [products, parserOptions],
   );
 
@@ -104,6 +117,7 @@ export function useVoiceOrder(
   }, [speech]);
 
   const fixTranscript = (text: string) => {
+    if (DEBUG_RAW_TRANSCRIPT) return text; // mostra o texto cru do motor de voz
     let fixed = text
       // Prioridade máxima: "640.4 guaraná" → "640 mil kuat guaraná" (Google juntou "mil kuat" em ".4")
       .replace(

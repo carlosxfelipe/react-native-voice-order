@@ -15,31 +15,33 @@ import { Icon } from "@/components/icon";
 import { Text } from "@/components/text";
 import { useTheme } from "@/hooks/use-theme";
 import { useVoiceOrder } from "@/hooks/use-voice-order";
+import {
+  chatMessages,
+  setChatMessages,
+  clearChatMessages,
+  type ChatMessage,
+} from "@/stores/chat-store";
 import products from "../../../data/products.json";
 
-type Message = {
-  id: string;
-  text: string;
-  sender: "user" | "bot";
-  timestamp: Date;
-};
-
-const INITIAL_MESSAGES: Message[] = [
-  {
-    id: "1",
-    text: "Olá! Eu sou a SOL, sua assistente virtual. Como posso ajudar com seu pedido hoje?",
-    sender: "bot",
-    timestamp: new Date(),
-  },
-];
+type Message = ChatMessage;
 
 export default function ChatScreen() {
   const theme = useTheme();
-  const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
+  const [messages, setMessages] = useState<Message[]>(chatMessages);
   const [inputText, setInputText] = useState("");
   const [isRecording, setIsRecording] = useState(false);
   const scrollViewRef = useRef<ScrollView>(null);
   const waitingForFinalRef = useRef(false);
+
+  // Wrapper que sincroniza o state React com o store centralizado
+  const setMessagesAndPersist: typeof setMessages = (update) => {
+    setMessages((prev) => {
+      const next = setChatMessages(
+        typeof update === "function" ? update : () => update,
+      );
+      return next;
+    });
+  };
 
   const {
     isListening,
@@ -68,7 +70,7 @@ export default function ChatScreen() {
           sender: "user",
           timestamp: new Date(),
         };
-        setMessages((prev) => [...prev, newUserMessage]);
+        setMessagesAndPersist((prev) => [...prev, newUserMessage]);
         parseText(textToSend);
       }
     }
@@ -76,7 +78,8 @@ export default function ChatScreen() {
 
   React.useEffect(() => {
     const sub = DeviceEventEmitter.addListener("clearChat", () => {
-      setMessages(INITIAL_MESSAGES);
+      const cleared = clearChatMessages();
+      setMessages(cleared);
     });
     return () => sub.remove();
   }, []);
@@ -93,7 +96,7 @@ export default function ChatScreen() {
           sender: "bot",
           timestamp: new Date(),
         };
-        setMessages((prev) => [...prev, botResponse]);
+        setMessagesAndPersist((prev) => [...prev, botResponse]);
       } else if (orderResult.unmatched.length > 0) {
         const botResponse: Message = {
           id: Date.now().toString(),
@@ -101,7 +104,7 @@ export default function ChatScreen() {
           sender: "bot",
           timestamp: new Date(),
         };
-        setMessages((prev) => [...prev, botResponse]);
+        setMessagesAndPersist((prev) => [...prev, botResponse]);
       }
       reset();
     }
@@ -117,7 +120,7 @@ export default function ChatScreen() {
       timestamp: new Date(),
     };
 
-    setMessages((prev) => [...prev, newUserMessage]);
+    setMessagesAndPersist((prev) => [...prev, newUserMessage]);
     const textToParse = inputText.trim();
     setInputText("");
 

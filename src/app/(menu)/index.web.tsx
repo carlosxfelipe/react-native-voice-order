@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 
+import { clearChatMessages } from "@/stores/chat-store";
+
 import { Icon } from "@/components/icon";
 import { Text } from "@/components/text";
 import { useResponsive } from "@/hooks/use-responsive";
@@ -67,7 +69,8 @@ export default function MenuScreen() {
             pressed && { opacity: 0.7 },
           ]}
           onPress={() => {
-            DeviceEventEmitter.emit("clearChat");
+            clearChatMessages(); // reseta o store mesmo se o ChatScreen estiver desmontado
+            DeviceEventEmitter.emit("clearChat"); // atualiza o state React se estiver montado
             router.push("/(chat)");
           }}
         >
