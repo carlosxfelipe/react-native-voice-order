@@ -15,8 +15,9 @@ npm install
 | iOS (Expo Go) | `npm run ios` |
 | Android (Expo Go) | `npm run android` |
 | iOS (dev build — necessário para speech) | `npm run ios:native` |
+| Android (dev build — necessário para speech) | `npm run android:native` |
 
-> **Nota:** O reconhecimento de voz (`expo-speech-recognition`) requer **development build**. No Expo Go só funciona o chat por texto.
+> **Nota:** O reconhecimento de voz (`expo-speech-recognition`) requer **development build**. No Expo Go só funciona o chat por texto. Para testar a funcionalidade de voz nos dispositivos ou emuladores, utilize `npm run ios:native` ou `npm run android:native`.
 
 ## Estrutura
 

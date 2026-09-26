@@ -46,7 +46,11 @@ export default function ChatScreen() {
     stopListening,
     reset,
     parseText,
-  } = useVoiceOrder(products as any);
+  } = useVoiceOrder(products as any, {
+    aliases: {
+      kuat: ["quatro", "quati"],
+    },
+  });
 
   React.useEffect(() => {
     if (isListening && transcript) {
