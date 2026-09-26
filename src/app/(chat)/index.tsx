@@ -1,7 +1,9 @@
 import React, { useRef, useState } from "react";
 import {
+  Animated,
   KeyboardAvoidingView,
   Platform,
+  Pressable,
   ScrollView,
   StyleSheet,
   TextInput,
@@ -35,11 +37,14 @@ export default function ChatScreen() {
   const theme = useTheme();
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [inputText, setInputText] = useState("");
+  const [isRecording, setIsRecording] = useState(false);
   const scrollViewRef = useRef<ScrollView>(null);
+  const waitingForFinalRef = useRef(false);
 
   const {
     isListening,
     transcript,
+    finalTranscript,
     orderResult,
     isAvailable,
     error,
@@ -49,11 +54,25 @@ export default function ChatScreen() {
     parseText,
   } = useVoiceOrder(products as any);
 
+  // Quando o engine emite o resultado final, envia a mensagem
   React.useEffect(() => {
-    if (isListening && transcript) {
-      setInputText(transcript);
+    if (waitingForFinalRef.current && !isListening) {
+      waitingForFinalRef.current = false;
+      // Usa transcript (que inclui o parcial mais recente) como fallback
+      // para não perder as últimas palavras que o engine ainda não finalizou
+      const textToSend = (transcript || finalTranscript).trim();
+      if (textToSend) {
+        const newUserMessage: Message = {
+          id: Date.now().toString(),
+          text: textToSend,
+          sender: "user",
+          timestamp: new Date(),
+        };
+        setMessages((prev) => [...prev, newUserMessage]);
+        parseText(textToSend);
+      }
     }
-  }, [isListening, transcript]);
+  }, [isListening, transcript, finalTranscript, parseText]);
 
   React.useEffect(() => {
     const sub = DeviceEventEmitter.addListener("clearChat", () => {
@@ -104,6 +123,17 @@ export default function ChatScreen() {
 
     // Use parseText if typed manually, or if transcript finished
     parseText(textToParse);
+  };
+
+  const GRACE_PERIOD_MS = 800;
+
+  const handleStopAndSend = () => {
+    setIsRecording(false); // UI volta ao normal imediatamente
+    // Continua gravando nos bastidores por mais GRACE_PERIOD_MS
+    setTimeout(() => {
+      waitingForFinalRef.current = true;
+      stopListening();
+    }, GRACE_PERIOD_MS);
   };
 
   const Container =
@@ -208,22 +238,54 @@ export default function ChatScreen() {
           onSubmitEditing={handleSend}
           returnKeyType="send"
         />
-        <View style={styles.sendButton}>
-          <Icon
-            name={isListening ? "microphone" : "microphone-outline"}
-            color={isListening ? theme.primary : theme.textSecondary}
-            size={28}
-            onPress={isListening ? stopListening : startListening}
-          />
-        </View>
-        <View style={styles.sendButton}>
-          <Icon
-            name="send"
-            color={theme.primary}
-            size={28}
+        {inputText.trim().length > 0 ? (
+          // Input com texto → botão enviar
+          <Pressable
+            style={({ pressed }) => [
+              styles.actionButton,
+              { backgroundColor: theme.primary, opacity: pressed ? 0.8 : 1 },
+            ]}
             onPress={handleSend}
-          />
-        </View>
+          >
+            <Icon name="send" color={"#fff"} size={20} />
+          </Pressable>
+        ) : isRecording ? (
+          // Gravando → botão vermelho para parar
+          <Pressable
+            style={[
+              styles.actionButton,
+              { backgroundColor: theme.notification },
+            ]}
+            onPressOut={handleStopAndSend}
+          >
+            <Icon name="stop" color={"#fff"} size={20} />
+          </Pressable>
+        ) : (
+          // Input vazio → botão microfone (segurar para gravar)
+          <Pressable
+            style={({ pressed }) => [
+              styles.actionButton,
+              {
+                backgroundColor:
+                  pressed || isRecording
+                    ? theme.primary
+                    : theme.backgroundElement,
+              },
+            ]}
+            onPressIn={() => {
+              setIsRecording(true);
+              startListening();
+            }}
+            onPressOut={handleStopAndSend}
+            delayLongPress={0}
+          >
+            <Icon
+              name={isRecording ? "microphone" : "microphone-outline"}
+              color={isRecording ? "#fff" : theme.textSecondary}
+              size={22}
+            />
+          </Pressable>
+        )}
       </View>
     </Container>
   );
@@ -286,6 +348,14 @@ const styles = StyleSheet.create({
   },
   sendButton: {
     marginLeft: 12,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  actionButton: {
+    marginLeft: 8,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     justifyContent: "center",
     alignItems: "center",
   },
