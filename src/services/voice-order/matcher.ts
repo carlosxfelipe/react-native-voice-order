@@ -65,6 +65,48 @@ function diceCoefficient(a: string, b: string): number {
 }
 
 /**
+ * Calcula a distância de Levenshtein entre duas strings.
+ * Útil para tolerar pequenos erros de digitação/pronúncia (ex: coca coola -> coca cola).
+ */
+function levenshteinDistance(a: string, b: string): number {
+  if (a.length === 0) return b.length;
+  if (b.length === 0) return a.length;
+
+  const matrix = Array.from({ length: a.length + 1 }, () =>
+    Array(b.length + 1).fill(0),
+  );
+
+  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      if (a[i - 1] === b[j - 1]) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j] + 1, // deleção
+          matrix[i][j - 1] + 1, // inserção
+          matrix[i - 1][j - 1] + 1, // substituição
+        );
+      }
+    }
+  }
+
+  return matrix[a.length][b.length];
+}
+
+/**
+ * Retorna similaridade baseada em Levenshtein (0 a 1).
+ */
+function levenshteinSimilarity(a: string, b: string): number {
+  const distance = levenshteinDistance(a, b);
+  const maxLen = Math.max(a.length, b.length);
+  if (maxLen === 0) return 1;
+  return 1 - distance / maxLen;
+}
+
+/**
  * Verifica se o query contém todas as palavras-chave significativas.
  * Retorna um score baseado na proporção de palavras encontradas.
  */
@@ -150,7 +192,14 @@ export function findBestMatch(
       }
     }
 
-    // Estratégia 6: Match por marca (bonus)
+    // Estratégia 6: Levenshtein contra nome expandido (tolera erros de digitação)
+    const levenshteinScore = levenshteinSimilarity(
+      expandedQuery,
+      entry.expandedName,
+    );
+    maxScore = Math.max(maxScore, levenshteinScore * 0.95);
+
+    // Estratégia 7: Match por marca (bonus)
     const brandNorm = normalize(entry.product.brand);
     if (normalizedQuery.includes(brandNorm) && brandNorm.length >= 3) {
       maxScore = Math.max(maxScore, maxScore + 0.1, 0.3);

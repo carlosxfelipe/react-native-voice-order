@@ -288,5 +288,65 @@
     "brand": "Jack Daniels & Coca-Cola",
     "category": "Drinks Prontos",
     "stock": 85
+  },
+  {
+    "id": "32",
+    "sku": "COCA-ZERO-2L",
+    "name": "Coca-Cola Sem Açúcar 2L",
+    "price": 8.90,
+    "imageUrl": "",
+    "brand": "Coca-Cola",
+    "category": "Refrigerantes",
+    "stock": 120
+  },
+  {
+    "id": "33",
+    "sku": "FANTA-GUARANA-2L",
+    "name": "Fanta Guaraná 2L",
+    "price": 7.50,
+    "imageUrl": "",
+    "brand": "Fanta",
+    "category": "Refrigerantes",
+    "stock": 80
+  },
+  {
+    "id": "34",
+    "sku": "KAPO-MORANGO-200",
+    "name": "Del Valle Kapo Morango 200ml",
+    "price": 2.50,
+    "imageUrl": "",
+    "brand": "Del Valle",
+    "category": "Sucos",
+    "stock": 300
+  },
+  {
+    "id": "35",
+    "sku": "DELVALLE-UVA-1L",
+    "name": "Del Valle 100% Suco Uva 1L",
+    "price": 9.90,
+    "imageUrl": "",
+    "brand": "Del Valle",
+    "category": "Sucos",
+    "stock": 60
+  },
+  {
+    "id": "36",
+    "sku": "ADES-MACA-1L",
+    "name": "Ades Maçã 1L",
+    "price": 7.90,
+    "imageUrl": "",
+    "brand": "Ades",
+    "category": "Sucos",
+    "stock": 50
+  },
+  {
+    "id": "37",
+    "sku": "BURN-ENERGY-LATA-260",
+    "name": "Burn Energy Drink Lata 260ml",
+    "price": 8.50,
+    "imageUrl": "",
+    "brand": "Burn",
+    "category": "Energéticos",
+    "stock": 75
   }
 ]

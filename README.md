@@ -5,7 +5,7 @@ POC de um app mobile para **pedidos de produtos por voz**. O usuário fala o que
 ## Como rodar
 
 ```bash
-git clone <repo-url> && cd react-native-voice-order
+git clone https://github.com/carlosxfelipe/react-native-voice-order.git && cd react-native-voice-order
 npm install
 ```
 
