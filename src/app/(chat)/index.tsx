@@ -272,6 +272,13 @@ export default function ChatScreen() {
               startListening();
             }}
             onPressOut={handleStopAndSend}
+            {...({
+              onContextMenu: (e: any) => {
+                if (Platform.OS === "web") {
+                  e.preventDefault(); // Previne o Android de abrir o menu de "copiar" no long press e cancelar o toque
+                }
+              },
+            } as any)}
           >
             <Icon
               name={isRecording ? "stop" : "microphone-outline"}
@@ -353,10 +360,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     // Evita que o browser mobile roube o evento de toque (achando que é scroll ou seleção)
-    ...(Platform.OS === "web" && {
-      touchAction: "none",
-      userSelect: "none",
-      WebkitUserSelect: "none",
-    } as any),
+    ...(Platform.OS === "web" &&
+      ({
+        touchAction: "none",
+        userSelect: "none",
+        WebkitUserSelect: "none",
+        WebkitTouchCallout: "none", // Desativa o menu popup padrão do iOS/Android no long press
+      } as any)),
   },
 });
