@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TextInput,
   View,
+  DeviceEventEmitter,
 } from "react-native";
 
 import { Icon } from "@/components/icon";
@@ -53,6 +54,13 @@ export default function ChatScreen() {
       setInputText(transcript);
     }
   }, [isListening, transcript]);
+
+  React.useEffect(() => {
+    const sub = DeviceEventEmitter.addListener("clearChat", () => {
+      setMessages(INITIAL_MESSAGES);
+    });
+    return () => sub.remove();
+  }, []);
 
   React.useEffect(() => {
     if (orderResult) {

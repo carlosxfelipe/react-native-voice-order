@@ -70,12 +70,30 @@ export function extractQuantity(text: string): QuantityMatch {
     }
   }
 
-  // 2. Tenta número no início do texto ("2 coca", "10 fanta")
-  const numericMatch = trimmed.match(/^(\d+)\s+(.*)/);
+  // 2. Tenta número no início do texto ("2 coca", "10 fanta", "640 mil guaraná")
+  const numericMatch = trimmed.match(
+    /^(\d+)(?:\s+(mil|milh[oõ]es|bilh[oõ]es))?\s+(.*)/i,
+  );
   if (numericMatch) {
+    let qty = parseInt(numericMatch[1], 10);
+    const multiplier = numericMatch[2]?.toLowerCase();
+    if (multiplier === "mil") qty *= 1000;
+    else if (
+      multiplier === "milhão" ||
+      multiplier === "milhões" ||
+      multiplier === "milhoes"
+    )
+      qty *= 1000000;
+    else if (
+      multiplier === "bilhão" ||
+      multiplier === "bilhões" ||
+      multiplier === "bilhoes"
+    )
+      qty *= 1000000000;
+
     return {
-      quantity: parseInt(numericMatch[1], 10),
-      rest: numericMatch[2].trim(),
+      quantity: qty,
+      rest: numericMatch[3].trim(),
     };
   }
 

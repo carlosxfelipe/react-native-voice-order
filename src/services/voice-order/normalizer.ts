@@ -12,7 +12,10 @@ export function removeAccents(text: string): string {
 
 /** Normaliza um texto: lowercase, sem acentos, sem pontuação. */
 export function normalize(text: string): string {
-  return removeAccents(text)
+  // Remove pontos entre números (separador de milhar do pt-BR) antes de limpar a pontuação
+  const textWithoutThousandSeparators = text.replace(/(\d)\.(\d)/g, "$1$2");
+
+  return removeAccents(textWithoutThousandSeparators)
     .toLowerCase()
     .replace(/[^a-z0-9\s]/g, " ")
     .replace(/\s+/g, " ")

@@ -104,9 +104,32 @@ export function useVoiceOrder(
   }, [speech]);
 
   const fixTranscript = (text: string) => {
-    return text
-      .replace(/\b4\/4\b/g, "4 kuat")
-      .replace(/\bquatro quartos\b/gi, "4 kuat");
+    let fixed = text
+      // Prioridade máxima: "640.4 guaraná" → "640 mil kuat guaraná" (Google juntou "mil kuat" em ".4")
+      .replace(
+        /\b(\d+)\.4\s+(?:de\s+)?guaran[aá](?!\w)/gi,
+        "$1 mil kuat guaraná",
+      )
+      .replace(/\b(\d+)\.4\b/gi, "$1 mil kuat")
+      // "640.000 4 de guaraná" → "640.000 kuat guaraná" (Google escreveu o número e separou o kuat como "4")
+      .replace(
+        /\b(\d[\d.]*)\s+4\s+(?:de\s+)?guaran[aá](?!\w)/gi,
+        "$1 kuat guaraná",
+      )
+      .replace(/\b4\/4\b/g, "quatro kuat")
+      .replace(/\bquatro quartos\b/gi, "quatro kuat")
+      // Correção para quando "quatro kuat" vira apenas "quatro" no final da frase
+      .replace(/\bquatro\s*[.!?]*$/gi, "quatro kuat")
+      // Se vier uma quantidade antes de "quatro" ou "quarto(s)", sabemos que o segundo é a marca
+      .replace(
+        /\b(um|uma|1|dois|duas|2|tr[eê]s|3|quatro|4|cinco|5|seis|6|sete|7|oito|8|nove|9|dez|10)\s+quatro\b/gi,
+        "$1 kuat",
+      )
+      .replace(
+        /\b(um|uma|1|dois|duas|2|tr[eê]s|3|quatro|4|cinco|5|seis|6|sete|7|oito|8|nove|9|dez|10)\s+quartos?\b/gi,
+        "$1 kuat",
+      );
+    return fixed;
   };
 
   return {

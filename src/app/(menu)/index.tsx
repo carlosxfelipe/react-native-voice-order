@@ -5,7 +5,9 @@ import {
   StyleSheet,
   Pressable,
   Linking,
+  DeviceEventEmitter,
 } from "react-native";
+import { useRouter } from "expo-router";
 
 import { Icon } from "@/components/icon";
 import { Text } from "@/components/text";
@@ -13,6 +15,7 @@ import { useTheme } from "@/hooks/use-theme";
 
 export default function MenuScreen() {
   const theme = useTheme();
+  const router = useRouter();
 
   return (
     <>
@@ -53,6 +56,23 @@ export default function MenuScreen() {
             Ver no GitHub
           </Text>
           <Icon name="open-in-new" size={20} color={theme.textSecondary} />
+        </Pressable>
+
+        <Pressable
+          style={({ pressed }) => [
+            styles.menuItem,
+            { backgroundColor: theme.backgroundElement },
+            pressed && { opacity: 0.7 },
+          ]}
+          onPress={() => {
+            DeviceEventEmitter.emit("clearChat");
+            router.push("/(chat)");
+          }}
+        >
+          <Icon name="delete" size={24} color={theme.notification} />
+          <Text style={[styles.menuItemText, { color: theme.notification }]}>
+            Limpar Histórico do Chat
+          </Text>
         </Pressable>
       </ScrollView>
     </>
