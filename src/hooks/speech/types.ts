@@ -20,7 +20,7 @@ export interface SpeechRecognitionState {
 
 export interface SpeechRecognitionActions {
   /** Inicia o reconhecimento de voz. */
-  start: (lang?: string) => Promise<void>;
+  start: (lang?: string, contextualStrings?: string[]) => Promise<void>;
   /** Para o reconhecimento e finaliza o resultado. */
   stop: () => Promise<void>;
   /** Limpa o transcript atual. */

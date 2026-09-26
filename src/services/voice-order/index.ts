@@ -4,7 +4,7 @@
  * Exports públicos do módulo de pedido por voz.
  */
 
-export { VoiceOrderParser } from "./parser";
+export { VoiceOrderParser, DOMAIN_ALIASES } from "./parser";
 export { extractQuantity } from "./quantity-parser";
 export { normalize, expandAbbreviations } from "./normalizer";
 export { buildIndex, findBestMatch } from "./matcher";

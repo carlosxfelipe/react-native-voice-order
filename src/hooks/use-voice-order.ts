@@ -16,6 +16,7 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import { useSpeechRecognition } from "./speech/use-speech-recognition";
 import {
   VoiceOrderParser,
+  DOMAIN_ALIASES,
   type ParseResult,
   type Product,
   type ParserOptions,
@@ -72,8 +73,21 @@ export function useVoiceOrder(
   const startListening = useCallback(async () => {
     setOrderResult(null);
     shouldParseRef.current = true;
-    await speech.start("pt-BR");
-  }, [speech]);
+
+    const allAliases = { ...DOMAIN_ALIASES, ...(parserOptions?.aliases ?? {}) };
+    const contextualStrings: string[] = [
+      ...products.map((p) => p.name),
+      ...products.map((p) => p.brand),
+      ...Object.keys(allAliases),
+      ...(Object.values(allAliases).flat() as string[]),
+    ];
+    // Remove duplicatas e strings vazias
+    const uniqueContextualStrings = [...new Set(contextualStrings)].filter(
+      Boolean,
+    ) as string[];
+
+    await speech.start("pt-BR", uniqueContextualStrings);
+  }, [speech, products, parserOptions]);
 
   const stopListening = useCallback(async () => {
     await speech.stop();
@@ -89,10 +103,16 @@ export function useVoiceOrder(
     shouldParseRef.current = false;
   }, [speech]);
 
+  const fixTranscript = (text: string) => {
+    return text
+      .replace(/\b4\/4\b/g, "4 kuat")
+      .replace(/\bquatro quartos\b/gi, "4 kuat");
+  };
+
   return {
     isListening: speech.isListening,
-    transcript: speech.transcript,
-    finalTranscript: speech.finalTranscript,
+    transcript: fixTranscript(speech.transcript),
+    finalTranscript: fixTranscript(speech.finalTranscript),
     orderResult,
     isAvailable: speech.isAvailable,
     error: speech.error,

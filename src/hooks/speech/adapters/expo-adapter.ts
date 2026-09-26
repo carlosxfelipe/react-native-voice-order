@@ -83,31 +83,35 @@ export function useExpoSpeechRecognition(): UseSpeechRecognitionReturn {
     setIsListening(false);
   });
 
-  const start = useCallback(async (lang: string = "pt-BR") => {
-    try {
-      setError(null);
-      accumulatedRef.current = "";
-      setTranscript("");
-      setFinalTranscript("");
+  const start = useCallback(
+    async (lang: string = "pt-BR", contextualStrings: string[] = []) => {
+      try {
+        setError(null);
+        accumulatedRef.current = "";
+        setTranscript("");
+        setFinalTranscript("");
 
-      const result =
-        await ExpoSpeechRecognitionModule.requestPermissionsAsync();
-      if (!result.granted) {
-        setError("Permissão de microfone negada");
-        return;
+        const result =
+          await ExpoSpeechRecognitionModule.requestPermissionsAsync();
+        if (!result.granted) {
+          setError("Permissão de microfone negada");
+          return;
+        }
+
+        ExpoSpeechRecognitionModule.start({
+          lang,
+          interimResults: true,
+          continuous: true,
+          contextualStrings,
+        });
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "Erro ao iniciar reconhecimento",
+        );
       }
-
-      ExpoSpeechRecognitionModule.start({
-        lang,
-        interimResults: true,
-        continuous: false,
-      });
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Erro ao iniciar reconhecimento",
-      );
-    }
-  }, []);
+    },
+    [],
+  );
 
   const stop = useCallback(async () => {
     try {

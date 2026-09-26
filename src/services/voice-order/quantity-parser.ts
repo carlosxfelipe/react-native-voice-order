@@ -86,7 +86,7 @@ export function extractQuantity(text: string): QuantityMatch {
   if (firstWord && NUMBER_WORDS[firstWord] !== undefined) {
     const restText = words.slice(1).join(" ").trim();
     if (restText === "") {
-      // Se a pessoa falou apenas o número (ex: "quatro"), 
+      // Se a pessoa falou apenas o número (ex: "quatro"),
       // provavelmente é o nome do produto (Kuat) transcrito errado.
       return { quantity: 1, rest: firstWord };
     }

@@ -104,6 +104,10 @@ function removeNoise(text: string): string {
  * const result = parser.parse("quero duas coca lata e uma fanta");
  * ```
  */
+export const DOMAIN_ALIASES: Record<string, string[]> = {
+  kuat: ["quatro", "quati", "4", "quarto", "quartos"],
+};
+
 export class VoiceOrderParser {
   private index: ProductIndex;
   private options: Required<ParserOptions>;
@@ -112,7 +116,7 @@ export class VoiceOrderParser {
     this.index = buildIndex(products);
     this.options = {
       minConfidence: options?.minConfidence ?? 0.4,
-      aliases: options?.aliases ?? {},
+      aliases: { ...DOMAIN_ALIASES, ...(options?.aliases ?? {}) },
     };
   }
 
