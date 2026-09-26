@@ -352,5 +352,11 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     justifyContent: "center",
     alignItems: "center",
+    // Evita que o browser mobile roube o evento de toque (achando que é scroll ou seleção)
+    ...(Platform.OS === "web" && {
+      touchAction: "none",
+      userSelect: "none",
+      WebkitUserSelect: "none",
+    } as any),
   },
 });
