@@ -252,25 +252,17 @@ export default function ChatScreen() {
           >
             <Icon name="send" color={"#fff"} size={20} />
           </Pressable>
-        ) : isRecording ? (
-          // Gravando → botão vermelho para parar
-          <Pressable
-            style={[
-              styles.actionButton,
-              { backgroundColor: theme.notification },
-            ]}
-            onPressOut={handleStopAndSend}
-          >
-            <Icon name="stop" color={"#fff"} size={20} />
-          </Pressable>
         ) : (
           // Input vazio → botão microfone (segurar para gravar)
+          // Usamos um único Pressable para não desmontar no meio do toque,
+          // o que causaria cancelamento do evento no Android/Web.
           <Pressable
             style={({ pressed }) => [
               styles.actionButton,
               {
-                backgroundColor:
-                  pressed || isRecording
+                backgroundColor: isRecording
+                  ? theme.notification
+                  : pressed
                     ? theme.primary
                     : theme.backgroundElement,
               },
@@ -280,12 +272,11 @@ export default function ChatScreen() {
               startListening();
             }}
             onPressOut={handleStopAndSend}
-            delayLongPress={0}
           >
             <Icon
-              name={isRecording ? "microphone" : "microphone-outline"}
+              name={isRecording ? "stop" : "microphone-outline"}
               color={isRecording ? "#fff" : theme.textSecondary}
-              size={22}
+              size={isRecording ? 20 : 22}
             />
           </Pressable>
         )}
