@@ -89,6 +89,60 @@ export default function HomeScreen() {
           </View>
         </View>
 
+        <View
+          style={[styles.card, { backgroundColor: theme.backgroundElement }]}
+        >
+          <View style={styles.cardHeader}>
+            <Icon name="microphone-off" size={24} color={theme.notification} />
+            <Text style={styles.cardTitle}>O Problema do "Kuat"</Text>
+          </View>
+          <Text style={[styles.cardText, { color: theme.text }]}>
+            Motores de voz nativos (Google, Apple) são treinados com corpus
+            internacionais e simplesmente não conhecem{" "}
+            <Text style={{ fontWeight: "bold" }}>Kuat</Text>, refrigerante da
+            Coca-Cola Brasil. Como o nome soa igual a "quatro", o motor
+            transcreve errado.
+          </Text>
+          <View
+            style={[styles.exampleBox, { backgroundColor: theme.background }]}
+          >
+            <Text style={[styles.exampleLabel, { color: theme.textSecondary }]}>
+              Você fala:
+            </Text>
+            <Text style={[styles.exampleText, { color: theme.text }]}>
+              "eu quero 4 Kuat guaraná"
+            </Text>
+            <Text
+              style={[
+                styles.exampleLabel,
+                { color: theme.textSecondary, marginTop: 8 },
+              ]}
+            >
+              O motor de voz entende:
+            </Text>
+            <Text style={[styles.exampleText, { color: theme.notification }]}>
+              "eu quero quatro guaraná"
+            </Text>
+            <Text
+              style={[
+                styles.exampleLabel,
+                { color: theme.textSecondary, marginTop: 8 },
+              ]}
+            >
+              O sistema corrige e processa:
+            </Text>
+            <Text style={[styles.exampleText, { color: theme.primary }]}>
+              4x Kuat Guaraná ✓
+            </Text>
+          </View>
+          <Text style={[styles.cardText, { color: theme.text, marginTop: 12 }]}>
+            A solução é dupla: um dicionário de{" "}
+            <Text style={{ fontWeight: "bold" }}>aliases</Text> (quatro, quati,
+            quartos → Kuat) no parser, e correções visuais inteligentes que
+            reconhecem os padrões de erro mais comuns do motor de voz.
+          </Text>
+        </View>
+
         <Pressable
           style={({ pressed }) => [
             styles.button,
@@ -188,5 +242,22 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     fontWeight: "600",
+  },
+  exampleBox: {
+    borderRadius: 12,
+    padding: 14,
+    marginTop: 14,
+    gap: 4,
+  },
+  exampleLabel: {
+    fontSize: 12,
+    fontWeight: "600",
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+  },
+  exampleText: {
+    fontSize: 15,
+    fontWeight: "500",
+    marginTop: 2,
   },
 });
