@@ -268,7 +268,9 @@ export default function ChatScreen() {
             ]}
             onPress={() => {
               if (isRecording) {
-                handleStopAndSend();
+                setIsRecording(false);
+                waitingForFinalRef.current = true;
+                stopListening();
               } else {
                 setIsRecording(true);
                 startListening();
