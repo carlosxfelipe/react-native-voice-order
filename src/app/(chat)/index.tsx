@@ -270,7 +270,7 @@ export default function ChatScreen() {
               if (isRecording) {
                 setIsRecording(false);
                 waitingForFinalRef.current = true;
-                setTimeout(() => stopListening(), 500);
+                setTimeout(() => stopListening(), GRACE_PERIOD_MS);
               } else {
                 setIsRecording(true);
                 startListening();
