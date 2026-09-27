@@ -13,6 +13,7 @@ import {
   useSpeechRecognitionEvent,
 } from "expo-speech-recognition";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { isMobileWeb } from "@/utils/platform";
 
 import type { UseSpeechRecognitionReturn } from "../types";
 
@@ -62,15 +63,20 @@ export function useExpoSpeechRecognition(): UseSpeechRecognitionReturn {
     const text = result.transcript ?? "";
 
     if (event.isFinal) {
-      // Acumula a transcrição final
-      const accumulated = accumulatedRef.current
-        ? `${accumulatedRef.current} ${text}`
-        : text;
-      accumulatedRef.current = accumulated;
-      setFinalTranscript(accumulated);
-      setTranscript(accumulated);
+      if (isMobileWeb) {
+        // Chrome/Android devolve tudo num único resultado — não acumula
+        setFinalTranscript(text);
+        setTranscript(text);
+      } else {
+        // Nativo: acumula frases finais de sessão contínua
+        const accumulated = accumulatedRef.current
+          ? `${accumulatedRef.current} ${text}`
+          : text;
+        accumulatedRef.current = accumulated;
+        setFinalTranscript(accumulated);
+        setTranscript(accumulated);
+      }
     } else {
-      // Mostra o resultado parcial junto com o que já foi acumulado
       const partial = accumulatedRef.current
         ? `${accumulatedRef.current} ${text}`
         : text;
