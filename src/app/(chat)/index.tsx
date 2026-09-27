@@ -21,6 +21,7 @@ import {
   clearChatMessages,
   type ChatMessage,
 } from "@/stores/chat-store";
+import { isMobileWeb } from "@/utils/platform";
 import products from "../../../data/products.json";
 
 type Message = ChatMessage;
@@ -124,7 +125,7 @@ export default function ChatScreen() {
     const textToParse = inputText.trim();
     setInputText("");
 
-    // Use parseText if typed manually, or if transcript finished
+    // Usa parseText se digitado manualmente ou se a transcrição de voz finalizou
     parseText(textToParse);
   };
 
@@ -215,7 +216,7 @@ export default function ChatScreen() {
             styles.input,
             {
               backgroundColor: isListening
-                ? theme.primary + "1A" // 10% opacity primary color
+                ? theme.primary + "1A" // 10% de opacidade da cor primária
                 : theme.inputBackground,
               color: theme.text,
               borderWidth: 1,
@@ -252,10 +253,36 @@ export default function ChatScreen() {
           >
             <Icon name="send" color={"#fff"} size={20} />
           </Pressable>
+        ) : isMobileWeb ? (
+          // Web Mobile → botão microfone (toque para gravar)
+          <Pressable
+            style={({ pressed }) => [
+              styles.actionButton,
+              {
+                backgroundColor: isRecording
+                  ? theme.notification
+                  : pressed
+                    ? theme.primary
+                    : theme.backgroundElement,
+              },
+            ]}
+            onPress={() => {
+              if (isRecording) {
+                handleStopAndSend();
+              } else {
+                setIsRecording(true);
+                startListening();
+              }
+            }}
+          >
+            <Icon
+              name={isRecording ? "stop" : "microphone-outline"}
+              color={isRecording ? "#fff" : theme.textSecondary}
+              size={isRecording ? 20 : 22}
+            />
+          </Pressable>
         ) : (
-          // Input vazio → botão microfone (segurar para gravar)
-          // Usamos um único Pressable para não desmontar no meio do toque,
-          // o que causaria cancelamento do evento no Android/Web.
+          // Nativo/Desktop → botão microfone (segurar para gravar)
           <Pressable
             style={({ pressed }) => [
               styles.actionButton,
