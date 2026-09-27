@@ -133,11 +133,6 @@ export function useVoiceOrder(
       )
       .replace(/\b4\/4\b/g, "quatro kuat")
       .replace(/\bquatro quartos\b/gi, "quatro kuat")
-      // "quatro guaraná" → "quatro kuat guaraná": seguro pois só dispara quando
-      // não há outra marca entre "quatro" e "guaraná" (ex: "quatro Fanta guaraná" não é afetado)
-      .replace(/\bquatro\s+(?:de\s+)?guaran[aá](?!\w)/gi, "quatro kuat guaraná")
-      // Correção para quando "quatro kuat" vira apenas "quatro" no final da frase
-      .replace(/\bquatro\s*[.!?]*$/gi, "quatro kuat")
       // Se vier uma quantidade antes de "quatro" ou "quarto(s)", sabemos que o segundo é a marca
       .replace(
         /\b(um|uma|1|dois|duas|2|tr[eê]s|3|quatro|4|cinco|5|seis|6|sete|7|oito|8|nove|9|dez|10)\s+quatro\b/gi,
@@ -146,7 +141,11 @@ export function useVoiceOrder(
       .replace(
         /\b(um|uma|1|dois|duas|2|tr[eê]s|3|quatro|4|cinco|5|seis|6|sete|7|oito|8|nove|9|dez|10)\s+quartos?\b/gi,
         "$1 kuat",
-      );
+      )
+      // "quatro guaraná" → "quatro kuat guaraná" (só chega aqui se não havia quantidade antes)
+      .replace(/\bquatro\s+(?:de\s+)?guaran[aá](?!\w)/gi, "quatro kuat guaraná")
+      // Correção para quando "quatro kuat" vira apenas "quatro" no final da frase
+      .replace(/\bquatro\s*[.!?]*$/gi, "quatro kuat");
     return fixed;
   };
 
