@@ -115,6 +115,7 @@ export function useExpoSpeechRecognition(): UseSpeechRecognitionReturn {
 
   const stop = useCallback(async () => {
     try {
+      setIsListening(false); // Força false imediatamente (bug Android Web)
       ExpoSpeechRecognitionModule.stop();
     } catch {
       // Ignora erro se já parou
