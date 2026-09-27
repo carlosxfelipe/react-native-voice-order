@@ -84,6 +84,7 @@ export function useVoiceOrder(
   );
 
   const startListening = useCallback(async () => {
+    speech.resetTranscript();
     setOrderResult(null);
     shouldParseRef.current = true;
 
