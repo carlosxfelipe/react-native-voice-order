@@ -17,7 +17,9 @@ npm install
 | iOS (dev build — necessário para speech) | `npm run ios:native` |
 | Android (dev build — necessário para speech) | `npm run android:native` |
 
-> **Nota:** O reconhecimento de voz (`expo-speech-recognition`) requer **development build**. No Expo Go só funciona o chat por texto. Para testar a funcionalidade de voz nos dispositivos ou emuladores, utilize `npm run ios:native` ou `npm run android:native`.
+> **Nota:** O reconhecimento de voz (`expo-speech-recognition`) requer **development build** em dispositivos nativos. No Expo Go só funciona o chat por texto. Para testar voz no iOS/Android, utilize `npm run ios:native` ou `npm run android:native`.
+>
+> **Web mobile (Android/iOS via browser):** o reconhecimento de voz funciona diretamente pelo browser, sem precisar de dev build. A interação é por toque: toque para iniciar, fale, toque novamente para enviar.
 
 ## Estrutura
 
@@ -32,6 +34,10 @@ npm install
 │   │   │   ├── adapters/expo-adapter.ts   # expo-speech-recognition
 │   │   │   └── adapters/rn-voice-adapter.ts # placeholder bare RN
 │   │   └── use-voice-order.ts       # Cola speech + parser
+│   ├── stores/
+│   │   └── chat-store.ts            # Estado global do chat (persiste entre abas)
+│   ├── utils/
+│   │   └── platform.ts              # Helpers de plataforma (ex: isMobileWeb)
 │   └── services/
 │       └── voice-order/             # Parser de pedido por voz (puro TS, zero deps)
 │           ├── parser.ts            # "duas coca lata" → { product, qty: 2 }
