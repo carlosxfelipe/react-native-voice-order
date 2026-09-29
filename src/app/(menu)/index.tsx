@@ -39,8 +39,6 @@ export default function MenuScreen() {
         contentContainerStyle={styles.contentContainer}
         contentInsetAdjustmentBehavior="automatic"
       >
-        <Text style={styles.title}>Menu</Text>
-
         <Pressable
           style={({ pressed }) => [
             styles.menuItem,
@@ -89,11 +87,6 @@ const styles = StyleSheet.create({
   contentContainer: {
     padding: 16,
     gap: 16,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: "bold",
-    marginBottom: 8,
   },
   menuItem: {
     flexDirection: "row",
