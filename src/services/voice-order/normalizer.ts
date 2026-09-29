@@ -43,9 +43,13 @@ const ABBREVIATIONS: Record<string, string> = {
   l: "",
   // Tamanhos subjetivos
   grande: "garrafa 2l 2 litros 1.5l",
+  grandes: "garrafa 2l 2 litros 1.5l",
   pequeno: "lata 350ml",
   pequena: "lata 350ml",
+  pequenos: "lata 350ml",
+  pequenas: "lata 350ml",
   litrao: "1l 1 litro",
+  litraos: "1l 1 litro",
   // Plurais
   latas: "lata",
   garrafas: "garrafa",

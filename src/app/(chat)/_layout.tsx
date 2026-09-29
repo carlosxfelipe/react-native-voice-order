@@ -1,5 +1,7 @@
+import { Icon } from "@/components/icon";
 import { useTheme } from "@/hooks/use-theme";
 import { Stack } from "expo-router";
+import { Platform } from "react-native";
 
 export default function ChatLayout() {
   const theme = useTheme();
@@ -20,7 +22,20 @@ export default function ChatLayout() {
         headerBackButtonDisplayMode: "minimal",
       }}
     >
-      <Stack.Screen name="index" options={{ title: "Chat" }} />
+      <Stack.Screen
+        name="index"
+        options={{
+          title: "Chat",
+          headerRight: () => (
+            <Icon
+              name="cart-outline"
+              size={24}
+              color={theme.text}
+              style={Platform.OS === "web" ? { marginRight: 16 } : undefined}
+            />
+          ),
+        }}
+      />
     </Stack>
   );
 }
