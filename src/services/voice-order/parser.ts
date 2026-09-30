@@ -158,11 +158,35 @@ export class VoiceOrderParser {
     const items: OrderItem[] = [];
     const unmatched: string[] = [];
 
-    // 1. Separa em segmentos
-    const segments = text
+    // 1. Separa em segmentos pelos separadores principais
+    const rawSegments = text
       .split(SEPARATORS)
       .map((s) => s.trim())
       .filter((s) => s.length > 0);
+
+    // 1b. Sub-divide segmentos que contêm números embutidos
+    //     Ex: "duas cocas grandes três fantas" → ["duas cocas grandes", "três fantas"]
+    const NUMBER_BOUNDARY =
+      /(?<!\d)\b(um|uma|dois|duas|tr[eê]s|quatro|cinco|seis|sete|oito|nove|dez|onze|doze|treze|quatorze|catorze|quinze|dezesseis|dezessete|dezoito|dezenove|vinte|\d+)\b/gi;
+
+    const segments: string[] = [];
+    for (const raw of rawSegments) {
+      const matches = [...raw.matchAll(NUMBER_BOUNDARY)];
+      // Só sub-divide se houver mais de um número no segmento
+      if (matches.length <= 1) {
+        segments.push(raw);
+        continue;
+      }
+      let lastIndex = 0;
+      for (let i = 1; i < matches.length; i++) {
+        const boundary = matches[i].index!;
+        const part = raw.slice(lastIndex, boundary).trim();
+        if (part) segments.push(part);
+        lastIndex = boundary;
+      }
+      const tail = raw.slice(lastIndex).trim();
+      if (tail) segments.push(tail);
+    }
 
     for (const segment of segments) {
       // 2. Remove ruído
