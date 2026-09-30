@@ -10,6 +10,7 @@ import {
 import { useRouter } from "expo-router";
 
 import { clearChatMessages } from "@/stores/chat-store";
+import { useCartStore } from "@/stores/cart-store";
 
 import { Icon } from "@/components/icon";
 import { Text } from "@/components/text";
@@ -18,6 +19,7 @@ import { useTheme } from "@/hooks/use-theme";
 export default function MenuScreen() {
   const theme = useTheme();
   const router = useRouter();
+  const clearCart = useCartStore((state) => state.clearCart);
 
   return (
     <>
@@ -67,6 +69,7 @@ export default function MenuScreen() {
           onPress={() => {
             clearChatMessages(); // reseta o store mesmo se o ChatScreen estiver desmontado
             DeviceEventEmitter.emit("clearChat"); // atualiza o state React se estiver montado
+            clearCart();
             router.push("/(chat)");
           }}
         >

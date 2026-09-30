@@ -21,6 +21,7 @@ import {
   clearChatMessages,
   type ChatMessage,
 } from "@/stores/chat-store";
+import { useCartStore } from "@/stores/cart-store";
 import { isMobileWeb } from "@/utils/platform";
 import products from "../../../data/products.json";
 
@@ -85,6 +86,8 @@ export default function ChatScreen() {
     return () => sub.remove();
   }, []);
 
+  const addToCart = useCartStore((state) => state.addItem);
+
   React.useEffect(() => {
     if (orderResult) {
       if (orderResult.items.length > 0) {
@@ -98,6 +101,10 @@ export default function ChatScreen() {
           timestamp: new Date(),
         };
         setMessagesAndPersist((prev) => [...prev, botResponse]);
+        // Adiciona os itens ao carrinho
+        for (const item of orderResult.items) {
+          addToCart(item.product, item.quantity);
+        }
       } else if (orderResult.unmatched.length > 0) {
         const botResponse: Message = {
           id: Date.now().toString(),
@@ -109,7 +116,7 @@ export default function ChatScreen() {
       }
       reset();
     }
-  }, [orderResult, reset]);
+  }, [orderResult, reset, addToCart]);
 
   const handleSend = () => {
     if (!inputText.trim()) return;
